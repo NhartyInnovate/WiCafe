@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card shadow-sm border-0 rounded-4">
+      <div class="card-body p-4">
+        <div class="mb-4">
+          <h1 class="mb-1">Edit Cafe</h1>
+          <p class="text-muted mb-0">Update cafe details below.</p>
+        </div>
+
+        <form method="POST" class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Cafe Name</label>
+            <input type="text" name="name" class="form-control" value="{{ cafe.name }}" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Location</label>
+            <input type="text" name="location" class="form-control" value="{{ cafe.location }}" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Map URL</label>
+            <input type="url" name="map_url" class="form-control" value="{{ cafe.map_url }}" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Image URL</label>
+            <input type="url" name="img_url" class="form-control" value="{{ cafe.img_url }}" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Seats</label>
+            <input type="text" name="seats" class="form-control" value="{{ cafe.seats }}">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Coffee Price</label>
+            <input type="text" name="coffee_price" class="form-control" value="{{ cafe.coffee_price }}">
+          </div>
+
+          <div class="col-12">
+            <label class="form-label d-block mb-2">Features</label>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="has_wifi" id="has_wifi" {% if cafe.has_wifi %}checked{% endif %}>
+              <label class="form-check-label" for="has_wifi">Has Wifi</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="has_sockets" id="has_sockets" {% if cafe.has_sockets %}checked{% endif %}>
+              <label class="form-check-label" for="has_sockets">Has Sockets</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="has_toilet" id="has_toilet" {% if cafe.has_toilet %}checked{% endif %}>
+              <label class="form-check-label" for="has_toilet">Has Toilet</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="can_take_calls" id="can_take_calls" {% if cafe.can_take_calls %}checked{% endif %}>
+              <label class="form-check-label" for="can_take_calls">Can Take Calls</label>
+            </div>
+          </div>
+
+          <div class="col-12 d-flex gap-2 pt-2">
+            <button type="submit" class="btn btn-dark">Save Changes</button>
+            <a href="{{ url_for('home') }}" class="btn btn-outline-secondary">Back</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

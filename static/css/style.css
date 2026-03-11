@@ -1,0 +1,92 @@
+body {
+  background-color: #f6f7f9;
+}
+
+/* Search Bar */
+
+.search-box {
+  display: flex;
+  gap: 10px;
+}
+
+.search-box input {
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* Cafe Cards */
+
+.cafe-card {
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  background: #ffffff;
+}
+
+.cafe-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.08);
+}
+
+.cafe-img {
+  height: 220px;
+  object-fit: cover;
+  background: #e9ecef;
+}
+
+/* Feature badges */
+
+.feature-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.feature-badge {
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.feature-badge.yes {
+  background-color: #e8f7ee;
+  color: #198754;
+}
+
+.feature-badge.no {
+  background-color: #fce8ea;
+  color: #dc3545;
+}
+
+/* Buttons */
+
+.btn {
+  border-radius: 10px;
+}
+
+/* Empty State */
+
+.empty-state {
+  background: white;
+  border-radius: 14px;
+  padding: 40px;
+  border: 1px solid #eee;
+}
+
+/* Card animation */
+
+.cafe-card {
+  animation: fadeUp 0.4s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

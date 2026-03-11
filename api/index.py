@@ -2,6 +2,9 @@ import os
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from flask_sqlalchemy import SQLAlchemy
 
+IS_VERCEL = os.environ.get("VERCEL") == "1"
+READ_ONLY_MODE = IS_VERCEL
+
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 db_path = os.path.join(BASE_DIR, "cafes.db")
 
@@ -53,12 +56,16 @@ def home():
         "index.html",
         cafes=cafes,
         search=search,
-        is_admin=session.get("is_admin", False)
+        is_admin=session.get("is_admin", False),
+        read_only=READ_ONLY_MODE
     )
 
 
 @app.route("/add", methods=["GET", "POST"])
 def add_cafe():
+    if READ_ONLY_MODE:
+        flash("Live demo is read-only on Vercel.")
+        return redirect(url_for("home"))
     if request.method == "POST":
         new_cafe = Cafe(
             name=request.form.get("name"),
@@ -76,11 +83,14 @@ def add_cafe():
         db.session.commit()
         return redirect(url_for("home"))
 
-    return render_template("add_cafe.html", is_admin=session.get("is_admin", False))
+    return render_template("add_cafe.html", is_admin=session.get("is_admin", False), read_only=READ_ONLY_MODE)
 
 
 @app.route("/edit/<int:cafe_id>", methods=["GET", "POST"])
 def edit_cafe(cafe_id):
+    if READ_ONLY_MODE:
+        flash("Live demo is read-only on Vercel.")
+        return redirect(url_for("home"))
     if not session.get("is_admin"):
         flash("Only admin can edit cafes.")
         return redirect(url_for("home"))
@@ -103,11 +113,14 @@ def edit_cafe(cafe_id):
         flash("Cafe updated successfully.")
         return redirect(url_for("home"))
 
-    return render_template("edit_cafe.html", cafe=cafe, is_admin=True)
+    return render_template("edit_cafe.html", cafe=cafe, is_admin=True, read_only=READ_ONLY_MODE)
 
 
 @app.route("/delete/<int:cafe_id>")
 def delete_cafe(cafe_id):
+    if READ_ONLY_MODE:
+        flash("Live demo is read-only on Vercel.")
+        return redirect(url_for("home"))
     cafe = Cafe.query.get_or_404(cafe_id)
     db.session.delete(cafe)
     db.session.commit()
@@ -126,7 +139,7 @@ def admin_login():
         else:
             flash("Incorrect admin password.")
 
-    return render_template("admin_login.html", is_admin=session.get("is_admin", False))
+    return render_template("admin_login.html", is_admin=session.get("is_admin", False), read_only=READ_ONLY_MODE)
 
 
 @app.route("/logout")

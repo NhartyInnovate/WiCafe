@@ -14,23 +14,19 @@
       ☕ Cafe & Wifi
     </a>
 
-    <div class="d-flex align-items-center gap-2">
-
+    <div class="d-flex gap-2">
       {% if is_admin %}
         <span class="badge bg-success">Admin</span>
-        <a href="{{ url_for('logout') }}" class="btn btn-warning btn-sm">
-          Logout
-        </a>
+        <a href="{{ url_for('logout') }}" class="btn btn-warning btn-sm">Logout</a>
       {% else %}
-        <a href="{{ url_for('admin_login') }}" class="btn btn-outline-info btn-sm">
-          Admin Login
-        </a>
+        <a href="{{ url_for('admin_login') }}" class="btn btn-outline-info btn-sm">Admin Login</a>
       {% endif %}
 
-      <a href="{{ url_for('add_cafe') }}" class="btn btn-light btn-sm">
-        + Add Cafe
-      </a>
-
+      {% if not read_only %}
+        <a href="{{ url_for('add_cafe') }}" class="btn btn-light btn-sm">+ Add Cafe</a>
+      {% else %}
+        <span class="btn btn-secondary btn-sm disabled">Read-Only Demo</span>
+      {% endif %}
     </div>
   </div>
 </nav>
@@ -43,6 +39,12 @@
         {% endfor %}
       {% endif %}
     {% endwith %}
+
+    {% if read_only %}
+      <div class="alert alert-warning">
+        This live demo is read-only. Add, edit, and delete are available locally.
+      </div>
+    {% endif %}
 
     {% block content %}{% endblock %}
   </main>

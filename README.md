@@ -13,7 +13,7 @@ Users can browse cafes, search by location, and view amenities before deciding w
 
 ## 🔗 Live Demo
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-green)](https://your-vercel-url.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-green)](https://wi-cafe.vercel.app/)
 
 > Note: The deployed version is **read-only** due to SQLite limitations on serverless platforms. Add/Edit/Delete functionality works when running locally.
 
